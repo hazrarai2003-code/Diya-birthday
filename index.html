@@ -3,650 +3,89 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A Special Letter For You 💌</title>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <title>Happy Birthday 🎉</title>
+
   <style>
-    :root {
-      --pink: #ff6eb4;
-      --purple: #b86bff;
-      --yellow: #ffe066;
-      --mint: #6bffcc;
-      --blue: #6bc8ff;
-      --white: #fff8ff;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
-      font-family: 'Nunito', sans-serif;
-      background: linear-gradient(135deg, #1a0533, #2d1060, #1a0533);
-      min-height: 100vh;
-      overflow-x: hidden;
-      cursor: default;
-    }
-
-    /* ── STARS BACKGROUND ── */
-    .stars {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .star {
-      position: absolute;
-      border-radius: 50%;
-      background: white;
-      animation: twinkle ease-in-out infinite;
-    }
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.2; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.4); }
-    }
-
-    /* ── ENVELOPE SCREEN ── */
-    #envelope-screen {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      background: linear-gradient(135deg, #1a0533, #2d1060, #1a0533);
-      transition: opacity 0.8s ease, visibility 0.8s ease;
-    }
-    #envelope-screen.hide {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .envelope-hint {
-      font-size: 1em;
-      color: rgba(255,255,255,0.5);
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 30px;
-      animation: pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 0.4; }
-      50% { opacity: 1; }
-    }
-
-    .envelope-wrap {
-      cursor: pointer;
-      position: relative;
-      animation: float 3s ease-in-out infinite;
-      filter: drop-shadow(0 0 30px rgba(255,110,180,0.5));
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-15px); }
-    }
-    .envelope-wrap:hover { filter: drop-shadow(0 0 50px rgba(255,110,180,0.9)); }
-    .envelope-wrap:hover .envelope-body { transform: scale(1.05); }
-
-    .envelope-body {
-      width: 220px;
-      height: 160px;
-      background: linear-gradient(145deg, #ff9ed4, #ff6eb4);
-      border-radius: 8px;
-      position: relative;
-      transition: transform 0.3s;
-      box-shadow: 0 20px 60px rgba(255,110,180,0.4);
-    }
-
-    /* envelope flap */
-    .envelope-body::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 0; height: 0;
-      border-left: 110px solid transparent;
-      border-right: 110px solid transparent;
-      border-top: 80px solid #ff5aa8;
-      border-radius: 4px 4px 0 0;
-      z-index: 2;
-    }
-    /* envelope bottom triangle */
-    .envelope-body::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 0; height: 0;
-      border-left: 110px solid transparent;
-      border-right: 110px solid transparent;
-      border-bottom: 90px solid #ff85c2;
-      z-index: 1;
-    }
-
-    .envelope-heart {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 2.5em;
-      z-index: 3;
-      animation: heartbeat 1.5s ease-in-out infinite;
-    }
-    @keyframes heartbeat {
-      0%, 100% { transform: translate(-50%, -50%) scale(1); }
-      50% { transform: translate(-50%, -50%) scale(1.2); }
-    }
-
-    .tap-text {
-      margin-top: 30px;
-      color: var(--yellow);
-      font-size: 1.1em;
-      font-weight: 700;
-      letter-spacing: 1px;
-      animation: bounce 1s ease-in-out infinite;
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
-    /* ── BIRTHDAY SCREEN ── */
-    #birthday-screen {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      opacity: 0;
-      transform: scale(0.9);
-      transition: opacity 1s ease, transform 1s ease;
-      pointer-events: none;
-    }
-    #birthday-screen.show {
-      opacity: 1;
-      transform: scale(1);
-      pointer-events: all;
-    }
-
-    /* ── CONFETTI ── */
-    .confetti-piece {
-      position: fixed;
-      top: -20px;
-      width: 10px;
-      height: 10px;
-      border-radius: 2px;
-      animation: confettiFall linear forwards;
-      z-index: 99;
-      pointer-events: none;
-    }
-    @keyframes confettiFall {
-      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-    }
-
-    /* ── FLOATING THINGS ── */
-    .floatie {
-      position: fixed;
-      font-size: 1.5em;
-      animation: floatUp linear forwards;
-      pointer-events: none;
-      z-index: 98;
-    }
-    @keyframes floatUp {
-      0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(-20px) rotate(360deg); opacity: 0; }
-    }
-
-    /* ── HERO ── */
-    .hero {
-      text-align: center;
-      padding: 80px 20px 40px;
-      position: relative;
-    }
-
-    .birthday-badge {
-      display: inline-block;
-      background: linear-gradient(135deg, var(--pink), var(--purple));
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #1a0533, #2d1060);
       color: white;
-      padding: 8px 25px;
-      border-radius: 50px;
-      font-size: 0.85em;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      font-weight: 800;
-      margin-bottom: 20px;
-      box-shadow: 0 5px 20px rgba(255,110,180,0.5);
-      animation: slideDown 0.8s ease forwards;
-    }
-    @keyframes slideDown {
-      from { transform: translateY(-30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+      text-align: center;
     }
 
-    .hero h1 {
-      font-family: 'Pacifico', cursive;
-      font-size: 3.5em;
-      background: linear-gradient(135deg, var(--yellow), var(--pink), var(--purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1.2;
-      margin-bottom: 10px;
-      animation: popIn 0.8s ease 0.3s both;
-    }
-    @keyframes popIn {
-      from { transform: scale(0.5); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    .hero .age-badge {
-      font-size: 5em;
-      animation: spin3d 1s ease 0.6s both;
-      display: block;
-      margin: 10px 0;
-    }
-    @keyframes spin3d {
-      from { transform: rotateY(180deg) scale(0); opacity: 0; }
-      to { transform: rotateY(0deg) scale(1); opacity: 1; }
-    }
-
-    .hero .name {
-      font-family: 'Pacifico', cursive;
+    h1 {
+      margin-top: 40px;
       font-size: 2.5em;
-      color: var(--mint);
-      text-shadow: 0 0 20px rgba(107,255,204,0.5);
-      animation: popIn 0.8s ease 0.9s both;
+      color: #ffe066;
     }
 
-    /* ── UNICORN SECTION ── */
-    .unicorn-section {
-      text-align: center;
-      padding: 20px;
-      font-size: 5em;
-      animation: wiggle 2s ease-in-out infinite;
-    }
-    @keyframes wiggle {
-      0%, 100% { transform: rotate(-5deg); }
-      50% { transform: rotate(5deg); }
-    }
-
-    /* ── MESSAGE CARD ── */
-    .message-wrap {
-      max-width: 650px;
-      margin: 40px auto;
-      padding: 0 20px;
-      animation: slideUp 0.8s ease 1.2s both;
-    }
-    @keyframes slideUp {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .message-card {
-      background: rgba(255,255,255,0.07);
-      backdrop-filter: blur(20px);
-      border: 2px solid rgba(255,110,180,0.3);
-      border-radius: 30px;
-      padding: 40px 35px;
-      position: relative;
-      overflow: hidden;
-    }
-    .message-card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: conic-gradient(from 0deg, transparent, rgba(255,110,180,0.1), transparent, rgba(184,107,255,0.1), transparent);
-      animation: rotateBg 8s linear infinite;
-    }
-    @keyframes rotateBg {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .message-card h2 {
-      font-family: 'Pacifico', cursive;
-      color: var(--yellow);
-      font-size: 1.8em;
+    .name {
+      font-size: 2em;
+      color: #6bffcc;
       margin-bottom: 20px;
-      text-align: center;
-      position: relative;
-      z-index: 1;
     }
 
-    .message-card p {
-      color: rgba(255,255,255,0.9);
-      font-size: 1.05em;
-      line-height: 2;
-      margin-bottom: 15px;
-      text-align: center;
-      position: relative;
-      z-index: 1;
+    .message {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      line-height: 1.6;
     }
 
-    .message-card .highlight {
-      color: var(--pink);
-      font-weight: 800;
-      font-size: 1.1em;
-    }
-
-    .message-card .signature {
-      text-align: right;
-      color: var(--mint);
-      font-size: 1.1em;
-      font-weight: 700;
-      margin-top: 20px;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ── WISHES GRID ── */
-    .wishes-section {
-      max-width: 650px;
+    .photos-section {
       margin: 40px auto;
-      padding: 0 20px;
-      animation: slideUp 0.8s ease 1.5s both;
+      max-width: 700px;
     }
 
-    .wishes-section h2 {
-      font-family: 'Pacifico', cursive;
-      color: var(--yellow);
-      font-size: 1.8em;
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .wishes-grid {
+    .photo-gallery {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 15px;
+      padding: 0 20px;
     }
 
-    .wish-card {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 20px;
-      padding: 20px 15px;
-      text-align: center;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .wish-card:hover {
-      transform: translateY(-5px) scale(1.03);
-      box-shadow: 0 15px 30px rgba(255,110,180,0.3);
-    }
-    .wish-card .icon { font-size: 2.2em; margin-bottom: 8px; display: block; }
-    .wish-card p { color: rgba(255,255,255,0.85); font-size: 0.9em; line-height: 1.5; }
-
-    /* ── CAKE SECTION ── */
-    .cake-section {
-      text-align: center;
-      padding: 40px 20px;
-      animation: slideUp 0.8s ease 1.8s both;
-    }
-
-    .cake-section h2 {
-      font-family: 'Pacifico', cursive;
-      color: var(--yellow);
-      font-size: 2em;
-      margin-bottom: 20px;
+    .photo-gallery img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 15px;
     }
 
     .cake {
-      font-size: 8em;
-      display: inline-block;
-      animation: cakePop 1s ease 2s both;
-      filter: drop-shadow(0 0 20px rgba(255,224,102,0.6));
-    }
-    @keyframes cakePop {
-      0% { transform: scale(0) rotate(-20deg); opacity: 0; }
-      60% { transform: scale(1.2) rotate(5deg); }
-      100% { transform: scale(1) rotate(0deg); opacity: 1; }
-    }
-
-    .candles-row {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 15px;
-      font-size: 2em;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      text-align: center;
-      padding: 40px 20px;
-      animation: slideUp 0.8s ease 2s both;
-    }
-
-    footer p {
-      color: rgba(255,255,255,0.6);
-      font-size: 0.9em;
-    }
-
-    footer .big {
-      font-family: 'Pacifico', cursive;
-      font-size: 1.5em;
-      background: linear-gradient(135deg, var(--pink), var(--purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 10px;
-      display: block;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 500px) {
-      .hero h1 { font-size: 2.5em; }
-      .wishes-grid { grid-template-columns: 1fr; }
-      .message-card { padding: 30px 20px; }
+      font-size: 80px;
+      margin-top: 30px;
     }
   </style>
 </head>
+
 <body>
 
-<!-- STARS -->
-<div class="stars" id="stars"></div>
+  <h1>🎉 Happy Birthday 🎉</h1>
+  <div class="name">Diya 💖</div>
 
-<!-- ENVELOPE SCREEN -->
-<div id="envelope-screen">
-  <p class="envelope-hint">✨ A special surprise for you ✨</p>
-  <div class="envelope-wrap" onclick="openEnvelope()">
-    <div class="envelope-body">
-      <div class="envelope-heart">💌</div>
-    </div>
-  </div>
-  <p class="tap-text">👆 Tap to open!</p>
-</div>
-
-<!-- BIRTHDAY SCREEN -->
-<div id="birthday-screen">
-
-  <!-- HERO -->
-  <div class="hero">
-    <div class="birthday-badge">🎉 Happy Birthday 🎉</div>
-    <h1>Happy Birthday!</h1>
-    <span class="age-badge">🎂</span>
-    <div class="name">Diya 🦄</div>
+  <div class="message">
+    My dearest Diya 💕 <br><br>
+    You are the most magical and beautiful girl! 🦄✨<br>
+    May your life be full of happiness, love and dreams 🌈
   </div>
 
-  <!-- UNICORN -->
-  <div class="unicorn-section">🦄</div>
+  <!-- PHOTOS -->
+  <div class="photos-section">
+    <h2>📸 Beautiful Memories</h2>
 
-  <!-- MESSAGE -->
-  <div class="message-wrap">
-    <div class="message-card">
-      <h2>💌 A Letter from Didiya</h2>
-      <p>
-        My dearest <span class="highlight">Diya</span> — my little sunshine! ☀️<br>
-        Today you turn <span class="highlight">9 years old</span> and I still can't believe
-        how fast my little baby sister has grown up! 🥺💕
-      </p>
-      <p>
-        You are the most <span class="highlight">magical, bubbly and beautiful</span>
-        little girl in the whole world —
-        just like your favourite unicorn, you make every room
-        brighter just by walking in! 🦄✨
-      </p>
-      <p>
-        I love our silly fights, our laughs, our secrets —
-        and even the times you trouble me! 😄
-        Because at the end of the day, you are my
-        <span class="highlight">most favourite person</span> in this world. 💖
-      </p>
-      <p>
-        May this birthday bring you all the happiness,
-        all the Barbie dolls, all the unicorns
-        and every single dream your little heart wishes for! 🌈🎀
-      </p>
-      <p>
-        <span class="highlight">Grow up to be kind, brave and always smiling —</span><br>
-        just like you are today! 😁
-      </p>
-      <div class="signature">
-        — Your Didiya loves you forever 🌟<br>
-        <small style="color:rgba(255,255,255,0.5);">Always & always ♾️</small>
-      </div>
+    <div class="photo-gallery">
+      <img src="photo1.JPG">
+      <img src="photo1.JPG">
+      <img src="photo1.JPG">
+      <img src="photo1.JPG">
     </div>
   </div>
 
-  <!-- WISHES -->
-  <div class="wishes-section">
-    <h2>🌈 Birthday Wishes for You!</h2>
-    <div class="wishes-grid">
-      <div class="wish-card">
-        <span class="icon">🦄</span>
-        <p>May your life always be as magical as a unicorn!</p>
-      </div>
-      <div class="wish-card">
-        <span class="icon">👸</span>
-        <p>You are a princess today and every single day!</p>
-      </div>
-      <div class="wish-card">
-        <span class="icon">🌈</span>
-        <p>May every day be as colourful as a rainbow!</p>
-      </div>
-      <div class="wish-card">
-        <span class="icon">💖</span>
-        <p>You are so loved by everyone around you!</p>
-      </div>
-      <div class="wish-card">
-        <span class="icon">🎀</span>
-        <p>May all your birthday wishes come true today!</p>
-      </div>
-      <div class="wish-card">
-        <span class="icon">⭐</span>
-        <p>You are a shining star — never stop glowing!</p>
-      </div>
-      <div class="wish-card">
-        <span class="icon">🍭</span>
-        <p>Life is sweet — just like you, our Diya!</p>
-      </div>
-      <div class="wish-card">
-        <span class="icon">🎠</span>
-        <p>May every dream you dream come to life!</p>
-      </div>
-    </div>
-  </div>
-  <!-- PHOTOS SECTION -->
-<div class="photos-section">
-  <h2>📸 Beautiful Memories</h2>
-<div class="photo-gallery">
-  <img src="photo1.JPG" alt="memory1">
-</div>
-</div>
-<!-- CAKE -->
-  <div class="cake-section">
-    <h2>🕯️ Make a Wish, Diya!</h2>
-    <div class="cake">🎂</div>
-    <div class="candles-row">
-      🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️
-    </div>
-    <p style="color:rgba(255,255,255,0.6); margin-top:15px; font-size:0.95em;">
-      9 candles for 9 wonderful years! ✨
-    </p>
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <span class="big">Happy 9th Birthday, Diya! 🦄🎉</span>
-    <p>Made with all the love in the world</p>
-    <p style="margin-top:5px;">— from your Didiya 💕 —</p>
-  </footer>
-
-</div>
-
-<script>
-  // Generate stars
-  const starsContainer = document.getElementById('stars');
-  for (let i = 0; i < 100; i++) {
-    const star = document.createElement('div');
-    star.className = 'star';
-    const size = Math.random() * 3 + 1;
-    star.style.cssText = `
-      width: ${size}px;
-      height: ${size}px;
-      left: ${Math.random() * 100}vw;
-      top: ${Math.random() * 100}vh;
-      animation-duration: ${Math.random() * 3 + 2}s;
-      animation-delay: ${Math.random() * 3}s;
-    `;
-    starsContainer.appendChild(star);
-  }
-
-  // Open envelope
-  function openEnvelope() {
-    // Hide envelope
-    document.getElementById('envelope-screen').classList.add('hide');
-
-    // Show birthday screen
-    setTimeout(() => {
-      const screen = document.getElementById('birthday-screen');
-      screen.classList.add('show');
-      launchConfetti();
-      launchFloaties();
-    }, 500);
-  }
-
-  // Confetti
-  function launchConfetti() {
-    const colors = ['#ff6eb4','#b86bff','#ffe066','#6bffcc','#6bc8ff','#ff9ed4','#ffffff'];
-    for (let i = 0; i < 150; i++) {
-      setTimeout(() => {
-        const c = document.createElement('div');
-        c.className = 'confetti-piece';
-        c.style.cssText = `
-          left: ${Math.random() * 100}vw;
-          background: ${colors[Math.floor(Math.random() * colors.length)]};
-          width: ${Math.random() * 10 + 5}px;
-          height: ${Math.random() * 10 + 5}px;
-          border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
-          animation-duration: ${Math.random() * 3 + 2}s;
-          animation-delay: ${Math.random() * 2}s;
-        `;
-        document.body.appendChild(c);
-        setTimeout(() => c.remove(), 6000);
-      }, i * 20);
-    }
-  }
-
-  // Floaties
-  function launchFloaties() {
-    const emojis = ['🦄','🎉','🎀','⭐','💖','🌈','🎊','🌟','🍭','👸','🎁','💫'];
-    for (let i = 0; i < 25; i++) {
-      setTimeout(() => {
-        const f = document.createElement('div');
-        f.className = 'floatie';
-        f.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-        f.style.cssText = `
-          left: ${Math.random() * 100}vw;
-          font-size: ${Math.random() * 2 + 1}em;
-          animation-duration: ${Math.random() * 4 + 4}s;
-          animation-delay: ${Math.random() * 3}s;
-        `;
-        document.body.appendChild(f);
-        setTimeout(() => f.remove(), 8000);
-      }, i * 200);
-    }
-  }
-</script>
+  <!-- CAKE -->
+  <div class="cake">🎂</div>
 
 </body>
 </html>
